@@ -1,3 +1,4 @@
+// loadProducts function
 const loadProducts = () => {
   document.getElementById("spinner").classList.remove("d-none");
   const url = `https://fakestoreapi.com/products`;
@@ -7,6 +8,16 @@ const loadProducts = () => {
     .then((data) => showProducts(data));
 };
 loadProducts();
+
+// single product load function
+//===========================================
+const dataLoad = (singleProduct) => {
+  const url = `https://fakestoreapi.com/products/${singleProduct}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => showDetails(data));
+};
+//==================================================
 
 // show all product in UI
 const showProducts = (products) => {
@@ -27,14 +38,20 @@ const showProducts = (products) => {
       <button onclick="addToCart(${product.id},${
       product.price
     })" id="addToCart-btn" class="buy-now btn btn-primary me-2">Add to Cart</button>
-      <button id="details-btn" onclick='showDetails(${
-        product.price
-      },${rate})' class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button></div>
+      <button id="details-btn" onclick='dataLoad(${
+        product.id
+      })' class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
   document.getElementById("spinner").classList.add("d-none");
 };
+
+{
+  /* <button id="details-btn" onclick='showDetails(${
+        product.price
+      },${rate})' class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button> */
+}
 
 let count = 0;
 const addToCart = (id, price) => {
@@ -92,14 +109,32 @@ const updateTotal = () => {
   document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
 
+// // showDetails function by using bootstrap modal
+// const showDetails = (price, rating) => {
+//   document.getElementById("modal-body").innerHTML = `
+//      <div class='p-3'>
+//       <h2>Price: $ ${price}</h2>
+//       <p>Rating: ${[...Array(parseInt(rating)).keys()].map(
+//         (r) => '<i class="bi bi-star-fill text-warning"></i>'
+//       )}</p>
+//      </div>
+// `;
+// };
+
+//==========================================================
 // showDetails function by using bootstrap modal
-const showDetails = (price, rating) => {
+const showDetails = (data) => {
   document.getElementById("modal-body").innerHTML = `
-     <div class='p-3'>
-      <h2>Price: $ ${price}</h2>
-      <p>Rating: ${[...Array(parseInt(rating)).keys()].map(
-        (r) => '<i class="bi bi-star-fill text-warning"></i>'
-      )}</p>
-     </div>
+     <div class='p-3 text-center'>
+         <img class="product-image mx-auto d-block" src=${data.image}>
+         <h2> ${data.title}</h2>
+         <p class="lead">Description: ${data.description.slice(0, 150)}</p>
+         <p class="lead">Category: ${data.category}</p>
+         <h3>Price: $ ${data.price}</h3>
+         <h5>Average Rating: ${[...Array(parseInt(data.rating.rate))].map(
+           (r) => '<i class="bi bi-star-fill text-warning"></i>'
+         )}</h5>
+      </div>
 `;
 };
+//=============================================================

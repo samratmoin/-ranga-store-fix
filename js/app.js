@@ -26,10 +26,10 @@ const showProducts = (products) => {
       <h6>Average-Rating: ${rate}</h6>
       <button onclick="addToCart(${product.id},${
       product.price
-    })" id="addToCart-btn" class="buy-now btn btn-success">Add to Cart</button>
+    })" id="addToCart-btn" class="buy-now btn btn-primary me-2">Add to Cart</button>
       <button id="details-btn" onclick='showDetails(${
         product.price
-      },${rate})' class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button></div>
+      },${rate})' class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }

@@ -10,14 +10,12 @@ const loadProducts = () => {
 loadProducts();
 
 // single product load function
-//===========================================
 const dataLoad = (singleProduct) => {
   const url = `https://fakestoreapi.com/products/${singleProduct}`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => showDetails(data));
 };
-//==================================================
 
 // show all product in UI
 const showProducts = (products) => {
@@ -46,12 +44,6 @@ const showProducts = (products) => {
   }
   document.getElementById("spinner").classList.add("d-none");
 };
-
-{
-  /* <button id="details-btn" onclick='showDetails(${
-        product.price
-      },${rate})' class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button> */
-}
 
 let count = 0;
 const addToCart = (id, price) => {
@@ -109,19 +101,6 @@ const updateTotal = () => {
   document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
 
-// // showDetails function by using bootstrap modal
-// const showDetails = (price, rating) => {
-//   document.getElementById("modal-body").innerHTML = `
-//      <div class='p-3'>
-//       <h2>Price: $ ${price}</h2>
-//       <p>Rating: ${[...Array(parseInt(rating)).keys()].map(
-//         (r) => '<i class="bi bi-star-fill text-warning"></i>'
-//       )}</p>
-//      </div>
-// `;
-// };
-
-//==========================================================
 // showDetails function by using bootstrap modal
 const showDetails = (data) => {
   document.getElementById("modal-body").innerHTML = `
@@ -137,4 +116,3 @@ const showDetails = (data) => {
       </div>
 `;
 };
-//=============================================================
